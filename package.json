@@ -1,0 +1,70 @@
+{
+	"name": "lian",
+	"productName": "lian",
+	"version": "0.0.1",
+	"description": "lian home",
+	"main": "electron/index.js",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"start": "electron-forge start",
+		"package": "electron-forge package",
+		"make": "electron-forge make",
+		"publish": "electron-forge publish",
+		"lint": "echo \"No linting configured\""
+	},
+	"keywords": [
+		"lian",
+		"xtt"
+	],
+	"author": {
+		"name": "xtt",
+		"email": "wtt150249@gmail.com"
+	},
+	"license": "MIT",
+	"config": {
+		"forge": {
+			"packagerConfig": {
+				"icon": "lian.ico"
+			},
+			"makers": [
+				{
+					"name": "@electron-forge/maker-squirrel",
+					"config": {
+						"name": "lian"
+					}
+				},
+				{
+					"name": "@electron-forge/maker-zip",
+					"platforms": [
+						"darwin"
+					]
+				},
+				{
+					"name": "@electron-forge/maker-deb",
+					"config": {}
+				},
+				{
+					"name": "@electron-forge/maker-rpm",
+					"config": {}
+				}
+			]
+		}
+	},
+	"dependencies": {
+		"electron-squirrel-startup": "^1.0.0",
+		"vue": "^3.2.37",
+		"vue-router": "^4.1.6",
+		"xtt-msg": "^1.0.4"
+	},
+	"devDependencies": {
+		"@electron-forge/cli": "^6.0.0-beta.64",
+		"@electron-forge/maker-deb": "^6.0.0-beta.64",
+		"@electron-forge/maker-rpm": "^6.0.0-beta.64",
+		"@electron-forge/maker-squirrel": "^6.0.0-beta.64",
+		"@electron-forge/maker-zip": "^6.0.0-beta.64",
+		"@vitejs/plugin-vue": "^3.2.0",
+		"electron": "^21.2.0",
+		"vite": "^3.2.1"
+	}
+}
