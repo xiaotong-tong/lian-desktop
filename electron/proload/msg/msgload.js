@@ -7,16 +7,22 @@ ipcRenderer.on("show-message", (e, msg) => {
 	const textContent = document.querySelector(".textContent");
 	textContent.textContent = showTextBrowser(msg);
 
-	setTimeout(() => {
-		// ipcRenderer.send("hideWindow", "msg");
-	}, 5000);
+	// setTimeout(() => {
+	// 	ipcRenderer.send("hideWindow", "msg");
+	// }, 5000);
 });
 
 let dragging = false;
+let dragEvent = false;
 let mouseX = 0;
 let mouseY = 0;
+window.addEventListener("click", (e) => {
+	if (!dragEvent) {
+		ipcRenderer.send("hideWindow", "msg");
+	}
+	dragEvent = false;
+});
 window.addEventListener("mousedown", (e) => {
-	alert("mousedown");
 	dragging = true;
 	const { pageX, pageY } = e;
 	mouseX = pageX;
@@ -30,6 +36,8 @@ window.addEventListener("mousedown", (e) => {
 			pos[0] = pos[0] + pageX - mouseX;
 			pos[1] = pos[1] + pageY - mouseY;
 			ipcRenderer.send("setWinPosition", "msg", pos[0], pos[1]);
+
+			dragEvent = true;
 		}
 	};
 

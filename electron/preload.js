@@ -38,5 +38,6 @@ window.addEventListener("mousedown", (e) => {
 });
 
 window.addEventListener("dblclick", (e) => {
-	showMsg("openMsg");
+	ipcRenderer.send("showWindow", "main");
+	showMsg("openMain");
 });

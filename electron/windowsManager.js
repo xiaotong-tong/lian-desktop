@@ -9,7 +9,7 @@ class WindowsManager {
 	static init() {
 		this.loadLive2d();
 		this.loadMsg();
-		// this.loadMain();
+		this.loadMain();
 	}
 
 	static loadLive2d() {
@@ -42,17 +42,17 @@ class WindowsManager {
 		this.#live2d.setSkipTaskbar(true);
 
 		// this.#live2d.loadURL(path.join(__dirname, "index.html"));
-		this.#live2d.loadURL("http://127.0.0.1:9000?#/live2d");
+		this.#live2d.loadURL("http://localhost:9000/?#/live2d");
 
 		// this.#live2d.webContents.openDevTools();
 	}
 
 	static loadMsg() {
 		this.#msg = new BrowserWindow({
-			width: 600,
-			height: 300,
-			// width: 210,
-			// height: 160,
+			// width: 600,
+			// height: 300,
+			width: 210,
+			height: 160,
 			frame: false,
 			transparent: true,
 			resizable: false,
@@ -66,7 +66,7 @@ class WindowsManager {
 		this.#msg.setAlwaysOnTop(true);
 		this.#msg.setIgnoreMouseEvents(false, { forward: true });
 		// this.#msg.loadFile(path.join(__dirname, "msg/index.html"));
-		this.#msg.loadURL("http://127.0.0.1:9000?#/msg");
+		this.#msg.loadURL("http://localhost:9000/?#/msg");
 		// this.#msg.hide();
 		// 打开调试面板
 		// this.#msg.webContents.openDevTools();
@@ -85,9 +85,12 @@ class WindowsManager {
 		});
 
 		this.#main.setSkipTaskbar(true);
-		this.#main.setAlwaysOnTop(true);
+		// this.#main.setAlwaysOnTop(true);
 		this.#main.setIgnoreMouseEvents(false, { forward: true });
-		this.#main.loadFile(path.join(__dirname, "main/index.html"));
+		// this.#main.loadFile(path.join(__dirname, "main/index.html"));
+		this.#main.loadURL("http://localhost:9000/?#/home");
+
+		this.#main.hide();
 		// 打开调试面板
 		this.#main.webContents.openDevTools();
 	}
@@ -97,6 +100,8 @@ class WindowsManager {
 			return this.#live2d.id;
 		} else if (winName === "msg") {
 			return this.#msg.id;
+		} else if (winName === "main") {
+			return this.#main.id;
 		}
 	}
 
@@ -105,6 +110,8 @@ class WindowsManager {
 			return this.#live2d.getPosition();
 		} else if (winName === "msg") {
 			return this.#msg.getPosition();
+		} else if (winName === "main") {
+			return this.#main.getPosition();
 		}
 	}
 
@@ -113,6 +120,8 @@ class WindowsManager {
 			return this.#live2d.setPosition(x, y);
 		} else if (winName === "msg") {
 			return this.#msg.setPosition(x, y);
+		} else if (winName === "main") {
+			return this.#main.setPosition(x, y);
 		}
 	}
 
@@ -121,6 +130,8 @@ class WindowsManager {
 			return this.#live2d.hide();
 		} else if (winName === "msg") {
 			return this.#msg.hide();
+		} else if (winName === "main") {
+			return this.#main.hide();
 		}
 	}
 
@@ -129,6 +140,8 @@ class WindowsManager {
 			return this.#live2d.show();
 		} else if (winName === "msg") {
 			return this.#msg.show();
+		} else if (winName === "main") {
+			return this.#main.show();
 		}
 	}
 }

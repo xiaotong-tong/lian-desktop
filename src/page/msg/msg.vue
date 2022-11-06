@@ -1,6 +1,6 @@
 <template>
 	<div class="text textborder2">
-		<div class="textContent">a</div>
+		<div class="textContent"></div>
 	</div>
 </template>
 
