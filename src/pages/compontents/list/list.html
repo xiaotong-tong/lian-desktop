@@ -1,0 +1,69 @@
+<style>
+	:host {
+		--list-column-gap: 16px;
+		--list-row-gap: 8px;
+	}
+
+	#container {
+		container-type: inline-size;
+	}
+
+	@container (width < 1536px) {
+		#list {
+			--col-count: 6;
+		}
+	}
+	@container (width < 1280px) {
+		#list {
+			--col-count: 4;
+		}
+	}
+	@container (width < 1024px) {
+		#list {
+			--col-count: 3;
+		}
+	}
+	@container (width < 768px) {
+		#list {
+			--col-count: 2;
+		}
+	}
+	@container (width < 320px) {
+		#list {
+			--col-count: 1;
+		}
+	}
+	@container not (width < 1536px) {
+		#list {
+			--col-count: 6;
+		}
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+	}
+	#list:not(.waterfall) {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(var(--col-count), 1fr);
+		grid-column-gap: var(--list-column-gap);
+		grid-row-gap: var(--list-row-gap);
+	}
+
+	#list.waterfall {
+		columns: var(--col-count);
+		column-gap: var(--list-column-gap);
+		break-inside: avoid;
+	}
+
+	#list.waterfall ::slotted(xtt-list-item) {
+		display: inline-block;
+		margin-bottom: var(--list-row-gap);
+	}
+</style>
+<div type="container" id="container">
+	<ul type="list" id="list">
+		<slot></slot>
+	</ul>
+</div>

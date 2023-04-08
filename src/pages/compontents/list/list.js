@@ -1,39 +1,41 @@
-const templateContent = `<link rel="stylesheet" href="../../compontents/list/list.css">
-<div type="container" id="container">
-	<ul type="list" id="list">
-	<slot></slot>
-	</ul>
-</div>
-`;
-
 customElements.define(
 	"xtt-list",
 	class xttListElement extends HTMLElement {
-		static template() {
-			const template = document.createElement("template");
-			template.innerHTML = templateContent;
-
-			return template.content.cloneNode(true);
-		}
-
 		static get observedAttributes() {
 			return ["height-style"];
 		}
 
+		#templatePromise = {
+			resolve: null,
+			reject: null,
+			promise() {
+				return new Promise((resolve, reject) => {
+					this.resolve = resolve;
+					this.reject = reject;
+				});
+			}
+		};
+
 		#shadowRoot;
-		#observer;
 
 		constructor() {
 			super();
 
-			this.#shadowRoot = this.attachShadow({ mode: "open" });
-			this.#shadowRoot.appendChild(xttListElement.template());
+			this.#templatePromise.promise();
 
-			this.#observer = new MutationObserver((mutations) => {
-				mutations.forEach((mutation) => {
-					this.#setListHeight(mutation.addedNodes);
+			this.#shadowRoot = this.attachShadow({ mode: "open" });
+
+			fetch(window.pages.srcPath + "pages/compontents/list/list.html")
+				.then((res) => {
+					return res.text();
+				})
+				.then((html) => {
+					const template = document.createElement("template");
+					template.innerHTML = html;
+
+					this.#shadowRoot.appendChild(template.content);
+					this.#templatePromise.resolve();
 				});
-			});
 		}
 
 		get #container() {
@@ -44,24 +46,10 @@ customElements.define(
 		}
 
 		attributeChangedCallback(name, oldValue, newValue) {
-			if (name === "height-style") {
-				this.#list.classList.add(newValue);
-			}
-		}
-
-		connectedCallback() {
-			this.#observer.observe(this, {
-				childList: true
-			});
-		}
-
-		#setListHeight(lists) {
-			if (!this.#list.classList.contains("waterfall")) {
-				return;
-			}
-
-			lists.forEach((list) => {
-				const height = list.offsetHeight;
+			this.#templatePromise.promise().then(() => {
+				if (name === "height-style") {
+					this.#list.classList.add(newValue);
+				}
 			});
 		}
 	}

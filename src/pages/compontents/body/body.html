@@ -1,0 +1,20 @@
+<style>
+	body {
+		margin: 0;
+	}
+	:host {
+		min-height: 100vh;
+		display: grid;
+		grid-template:
+			"nav main" 1fr
+			/ 150px 1fr;
+	}
+	::slotted(xtt-page-nav) {
+		grid-area: nav;
+	}
+	::slotted(main) {
+		grid-area: main;
+	}
+</style>
+<slot name="nav"></slot>
+<slot name="main"></slot>

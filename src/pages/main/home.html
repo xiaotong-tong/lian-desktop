@@ -5,9 +5,17 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="stylesheet" href="../../utils/reset.css" />
+		<script src="../compontents/body/body.js"></script>
+		<script src="../compontents/pagenav/nav.js"></script>
 	</head>
-	<body>
-		<a id="photos" href="photos">photos</a>
+	<body is="xtt-body">
+		<xtt-page-nav slot="nav">
+			<xtt-nav-item to="home">home</xtt-nav-item>
+		</xtt-page-nav>
+		<main slot="main">
+			<a id="photos" href="photos">photos</a>
+		</main>
 
 		<script>
 			const photos = document.querySelector("#photos");

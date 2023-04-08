@@ -29,7 +29,14 @@ class WindowsManager {
 	}
 
 	static loadLive2d() {
-		const position = JSON.parse(fs.readFileSync(this.#positionFile).toString());
+		let position;
+		try {
+			position = JSON.parse(
+				fs.readFileSync(this.#positionFile).toString() || "{}"
+			);
+		} catch (error) {
+			position = {};
+		}
 
 		this.#live2d = new BrowserWindow({
 			width: 180,
@@ -50,7 +57,6 @@ class WindowsManager {
 		});
 
 		// 窗口置顶
-		// mainWindow.setVisibleOnAllWorkspaces(true);
 		this.#live2d.setAlwaysOnTop(true);
 
 		// 不遮挡底部事件
@@ -67,7 +73,14 @@ class WindowsManager {
 	}
 
 	static loadMsg() {
-		const position = JSON.parse(fs.readFileSync(this.#positionFile).toString());
+		let position;
+		try {
+			position = JSON.parse(
+				fs.readFileSync(this.#positionFile).toString() || "{}"
+			);
+		} catch (error) {
+			position = {};
+		}
 
 		this.#msg = new BrowserWindow({
 			// width: 600,
@@ -95,10 +108,21 @@ class WindowsManager {
 	}
 
 	static loadMain() {
-		const position = JSON.parse(
-			fs.readFileSync(this.#positionFile).toString() || "{}"
-		);
-		const size = JSON.parse(fs.readFileSync(this.#sizeFile).toString() || "{}");
+		let position;
+		let size;
+		try {
+			position = JSON.parse(
+				fs.readFileSync(this.#positionFile).toString() || "{}"
+			);
+		} catch (error) {
+			position = {};
+		}
+
+		try {
+			size = JSON.parse(fs.readFileSync(this.#sizeFile).toString() || "{}");
+		} catch (error) {
+			size = {};
+		}
 
 		this.#main = new BrowserWindow({
 			width: size?.width ?? 800,
@@ -163,17 +187,10 @@ class WindowsManager {
 
 	static #writePosition(winName, x, y) {
 		fs.readFile(this.#positionFile, (err, data) => {
-			if (err) {
-				console.log(err);
-			} else {
-				let position = JSON.parse(data.toString() || "{}");
-				position[winName] = [x, y];
-				fs.writeFile(this.#positionFile, JSON.stringify(position), (err) => {
-					if (err) {
-						console.log(err);
-					}
-				});
-			}
+			fs.mkdirSync(path.join(__dirname, "./data"), { recursive: true });
+			let position = JSON.parse(data?.toString() || "{}");
+			position[winName] = [x, y];
+			fs.writeFileSync(this.#positionFile, JSON.stringify(position));
 		});
 	}
 	static #writePositionTemp = debounce(this.#writePosition, 2000);

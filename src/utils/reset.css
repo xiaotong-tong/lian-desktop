@@ -1,0 +1,37 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+	outline: thin dotted #c9d1d9;
+}
+
+img {
+	vertical-align: middle;
+}
+
+ul,
+ol {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+address {
+	font-style: normal;
+}
