@@ -39,3 +39,7 @@ ipcMain.on("hideWindow", async (ev, winName) => {
 ipcMain.on("showWindow", async (ev, winName) => {
 	WindowsManager.showWin(winName);
 });
+
+ipcMain.on("changeMainPage", async (ev, pageName) => {
+	WindowsManager.changeMainPage(pageName);
+});

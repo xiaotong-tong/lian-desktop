@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="../../../public/oss/live2d/js/live2dcubismcore.js"></script>
+		<script src="../../../public/oss/live2d/js/meidou_live2d.js"></script>
+
+		<style>
+			body {
+				margin: 0;
+				overflow: hidden;
+				height: 290px;
+			}
+			.live2d {
+				width: 170px;
+				height: 320px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="live2d" width="170" height="340" class="live2d"></canvas>
+	</body>
+	<script>
+		window.addEventListener("load", function () {
+			const loadModel = (resourcePath, modelNames) => {
+				debugger;
+				live2dLoader.resourcesConfig.setResourcesPath(resourcePath);
+				live2dLoader.resourcesConfig.setModelNames(modelNames);
+				live2dLoader.start();
+				window.msg.showMsg("【当前时间】");
+			};
+			loadModel("../../../public/oss/live2d/models/", ["nami"]);
+		});
+	</script>
+</html>

@@ -1,4 +1,5 @@
 const { ipcRenderer, contextBridge } = require("electron");
+const fs = require("fs");
 
 const showMsg = async (msg) => {
 	const winID = await ipcRenderer.invoke("getWindowID", "msg");
@@ -6,6 +7,13 @@ const showMsg = async (msg) => {
 };
 contextBridge.exposeInMainWorld("msg", {
 	showMsg: showMsg
+});
+
+const changePage = async (pageName) => {
+	ipcRenderer.send("changeMainPage", pageName);
+};
+contextBridge.exposeInMainWorld("pages", {
+	changePage: changePage
 });
 
 let dragging = false;
@@ -21,10 +29,10 @@ window.addEventListener("mousedown", (e) => {
 		document.documentElement.style.opacity = ".6";
 		if (dragging) {
 			const { pageX, pageY } = e;
-			const pos = await ipcRenderer.invoke("getWinPosition", "live2d");
+			const pos = await ipcRenderer.invoke("getWinPosition", "main");
 			pos[0] = pos[0] + pageX - mouseX;
 			pos[1] = pos[1] + pageY - mouseY;
-			ipcRenderer.send("setWinPosition", "live2d", pos[0], pos[1]);
+			ipcRenderer.send("setWinPosition", "main", pos[0], pos[1]);
 		}
 	};
 
@@ -35,9 +43,4 @@ window.addEventListener("mousedown", (e) => {
 		document.documentElement.style.opacity = "1";
 		window.removeEventListener("mousemove", changePosition);
 	});
-});
-
-window.addEventListener("dblclick", (e) => {
-	ipcRenderer.send("showWindow", "main");
-	showMsg("openMain");
 });

@@ -1,15 +1,16 @@
 const { ipcRenderer } = require("electron");
-const { showTextBrowser } = require("xtt-msg");
+// const { showTextBrowser } = require("xtt-msg");
 
-ipcRenderer.on("show-message", (e, msg) => {
+ipcRenderer.on("show-message", async (e, msg) => {
 	ipcRenderer.send("showWindow", "msg");
 	const textEL = document.querySelector(".text");
 	const textContent = document.querySelector(".textContent");
-	textContent.textContent = showTextBrowser(msg);
+	// textContent.textContent = await showTextBrowser(msg);
+	textContent.textContent = msg;
 
-	// setTimeout(() => {
-	// 	ipcRenderer.send("hideWindow", "msg");
-	// }, 5000);
+	setTimeout(() => {
+		ipcRenderer.send("hideWindow", "msg");
+	}, 5000);
 });
 
 let dragging = false;

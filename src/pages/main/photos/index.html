@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>涟</title>
+		<script src="../../compontents/list/list.js"></script>
+		<style>
+			img {
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<xtt-list></xtt-list>
+
+		<script>
+			const list = document.querySelector("xtt-list");
+
+			fetch("./images.json")
+				.then((res) => res.json())
+				.then((data) => {
+					data.forEach((item) => {
+						const listItem = document.createElement("xtt-list-item");
+						listItem.innerHTML = `
+						<img src="${item}" />
+					`;
+						list.appendChild(listItem);
+					});
+				});
+		</script>
+	</body>
+</html>
