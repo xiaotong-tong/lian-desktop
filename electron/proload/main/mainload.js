@@ -1,5 +1,6 @@
 const { ipcRenderer, contextBridge } = require("electron");
 const path = require("path");
+require("./webbg.js");
 
 const showMsg = async (msg) => {
 	const winID = await ipcRenderer.invoke("getWindowID", "msg");
@@ -14,7 +15,8 @@ const changePage = async (pageName) => {
 };
 contextBridge.exposeInMainWorld("pages", {
 	changePage: changePage,
-	srcPath: path.join(__dirname, "../../../src/")
+	srcPath: path.join(__dirname, "../../../src/").replace(/\\/g, "/"),
+	publicPath: path.join(__dirname, "../../../public/").replace(/\\/g, "/")
 });
 
 let dragging = false;
