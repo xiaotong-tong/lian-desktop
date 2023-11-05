@@ -2,6 +2,17 @@ const { ipcRenderer, contextBridge } = require("electron");
 const path = require("path");
 require("./webbg.js");
 
+window.addEventListener("DOMContentLoaded", () => {
+	const script = document.createElement("script");
+	script.src = path.join(__dirname, "../../../node_modules/xtt-ui/dist/index.js");
+	const lianScript = document.createElement("script");
+	lianScript.type = "module";
+	lianScript.src = path.join(__dirname, "../../../src/pages/compontents/index.js");
+
+	document.body.appendChild(lianScript);
+	document.body.appendChild(script);
+});
+
 const showMsg = async (msg) => {
 	const winID = await ipcRenderer.invoke("getWindowID", "msg");
 	ipcRenderer.sendTo(winID, "show-message", msg);

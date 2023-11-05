@@ -1,39 +1,25 @@
+import style from "./body.css" assert { type: "css" };
+
 customElements.define(
 	"xtt-body",
 	class xttBodyElement extends HTMLBodyElement {
 		#shadowRoot;
 		#observer;
 
-		#templatePromise = {
-			resolve: null,
-			reject: null,
-			promise() {
-				return new Promise((resolve, reject) => {
-					this.resolve = resolve;
-					this.reject = reject;
-				});
-			}
-		};
-
 		constructor() {
 			super();
 
 			this.#shadowRoot = this.attachShadow({ mode: "open" });
 
-			this.#templatePromise.promise();
+			const template = document.createElement("template");
+			template.innerHTML = `
+					<slot name="nav"></slot>
+					<slot name="main"></slot>
+					<slot></slot>`;
 
-			fetch(window.pages.srcPath + "pages/compontents/body/body.html")
-				.then((res) => {
-					return res.text();
-				})
-				.then((html) => {
-					const template = document.createElement("template");
-					template.innerHTML = html;
+			this.#shadowRoot.appendChild(template.content);
 
-					this.#shadowRoot.appendChild(template.content);
-
-					this.#templatePromise.resolve();
-				});
+			this.#shadowRoot.adoptedStyleSheets = [style];
 
 			this.#observer = new MutationObserver((mutations) => {
 				mutations.forEach((mutation) => {
@@ -52,7 +38,6 @@ customElements.define(
 			this.#observer.observe(this, {
 				childList: true
 			});
-			this.#templatePromise.promise().then(() => {});
 		}
 
 		#setDefaultSlot(el) {

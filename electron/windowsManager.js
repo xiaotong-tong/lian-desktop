@@ -31,9 +31,7 @@ class WindowsManager {
 	static loadLive2d() {
 		let position;
 		try {
-			position = JSON.parse(
-				fs.readFileSync(this.#positionFile).toString() || "{}"
-			);
+			position = JSON.parse(fs.readFileSync(this.#positionFile).toString() || "{}");
 		} catch (error) {
 			position = {};
 		}
@@ -65,9 +63,7 @@ class WindowsManager {
 		// 隐藏任务栏图标
 		this.#live2d.setSkipTaskbar(true);
 
-		this.#live2d.loadFile(
-			path.join(__dirname, "../src/pages/live2d/live2d.html")
-		);
+		this.#live2d.loadFile(path.join(__dirname, "../src/pages/live2d/live2d.html"));
 
 		// this.#live2d.webContents.openDevTools();
 	}
@@ -75,9 +71,7 @@ class WindowsManager {
 	static loadMsg() {
 		let position;
 		try {
-			position = JSON.parse(
-				fs.readFileSync(this.#positionFile).toString() || "{}"
-			);
+			position = JSON.parse(fs.readFileSync(this.#positionFile).toString() || "{}");
 		} catch (error) {
 			position = {};
 		}
@@ -111,9 +105,7 @@ class WindowsManager {
 		let position;
 		let size;
 		try {
-			position = JSON.parse(
-				fs.readFileSync(this.#positionFile).toString() || "{}"
-			);
+			position = JSON.parse(fs.readFileSync(this.#positionFile).toString() || "{}");
 		} catch (error) {
 			position = {};
 		}
@@ -143,7 +135,7 @@ class WindowsManager {
 		this.#main.setIgnoreMouseEvents(false, { forward: true });
 		this.#main.loadFile(path.join(__dirname, "../src/pages/main/home.html"));
 
-		this.#main.hide();
+		// this.#main.hide();
 		// 打开调试面板
 		this.#main.webContents.openDevTools();
 
@@ -160,9 +152,7 @@ class WindowsManager {
 	}
 
 	static changeMainPage(pageName) {
-		this.#main.loadFile(
-			path.join(__dirname, `../src/pages/main/${pageName}.html`)
-		);
+		this.#main.loadFile(path.join(__dirname, `../src/pages/main/${pageName}`));
 	}
 
 	static getWinID(winName = "live2d") {

@@ -5,9 +5,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>涟</title>
-		<script src="../../compontents/body/body.js"></script>
-		<script src="../../compontents/pagenav/nav.js"></script>
-		<script src="../../compontents/list/list.js"></script>
 		<style>
 			img {
 				width: 100%;
@@ -16,11 +13,13 @@
 	</head>
 	<body is="xtt-body">
 		<xtt-page-nav>
-			<xtt-nav-item to="home">home</xtt-nav-item>
+			<xtt-nav-item>
+				<xtt-l-link href="home.html">home</xtt-l-link>
+			</xtt-nav-item>
 		</xtt-page-nav>
 
 		<main>
-			<xtt-list height-style="waterfall"></xtt-list>
+			<xtt-list></xtt-list>
 		</main>
 
 		<script>

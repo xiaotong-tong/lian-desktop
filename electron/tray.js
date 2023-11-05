@@ -6,6 +6,10 @@ class trayManager {
 	static #tray;
 
 	static init() {
+		if (this.#tray) {
+			return;
+		}
+
 		this.#tray = new Tray(path.join(__dirname, "../lian.ico"));
 		const contextMenu = Menu.buildFromTemplate([
 			{

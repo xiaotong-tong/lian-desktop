@@ -24,9 +24,11 @@
 	},
 	"homepage": "https://github.com/xiaotong-tong/lian-desktop#readme",
 	"devDependencies": {
-		"electron": "^23.2.1"
+		"electron": "^26.2.1"
 	},
 	"dependencies": {
-		"electron-squirrel-startup": "^1.0.0"
+		"electron-squirrel-startup": "^1.0.0",
+		"xtt-ui": "^0.1.0",
+		"xtt-utils": "^0.2.0"
 	}
 }

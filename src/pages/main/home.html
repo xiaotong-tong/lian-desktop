@@ -6,23 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
 		<link rel="stylesheet" href="../../utils/reset.css" />
-		<script src="../compontents/body/body.js"></script>
-		<script src="../compontents/pagenav/nav.js"></script>
 	</head>
 	<body is="xtt-body">
 		<xtt-page-nav>
-			<xtt-nav-item to="home">home</xtt-nav-item>
+			<xtt-nav-item>
+				<xtt-l-link href="home.html">home</xtt-l-link>
+			</xtt-nav-item>
 		</xtt-page-nav>
 		<main>
-			<a id="photos" href="photos">photos</a>
+			<xtt-l-link href="photos/index.html">photos</xtt-l-link>
 		</main>
-
-		<script>
-			const photos = document.querySelector("#photos");
-			photos.addEventListener("click", (e) => {
-				e.preventDefault();
-				window.pages.changePage("photos/index");
-			});
-		</script>
 	</body>
 </html>
